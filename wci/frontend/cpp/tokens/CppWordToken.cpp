@@ -44,11 +44,11 @@ void CppWordToken::extract() throw (string)
 
     // Is it a reserved word or an identifier?
     string upper_case = to_upper(text);
-    if (CppToken::RESERVED_WORDS.find(upper_case)
+    if (CppToken::RESERVED_WORDS.find(text)
             != CppToken::RESERVED_WORDS.end())
     {
         // Reserved word.
-        type = (TokenType) CppToken::RESERVED_WORDS[upper_case];
+        type = (TokenType) CppToken::RESERVED_WORDS[text];
         value = upper_case;
     }
     else
