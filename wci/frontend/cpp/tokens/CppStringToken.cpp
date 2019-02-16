@@ -38,12 +38,7 @@ void CppStringToken::extract() throw (string)
         // Replace any whitespace character with a blank.
         if (isspace(current_ch)) current_ch = ' ';
 
-        if ((current_ch != '"') && (current_ch != EOF))
-        {
-            text += current_ch;
-            value_str  += current_ch;
-            current_ch = next_char();  // consume character
-        }
+
 
         // Quote?  Each pair of adjacent quotes represents a single-quote.
         if (current_ch == '"')
@@ -75,13 +70,20 @@ void CppStringToken::extract() throw (string)
 
 		if ((current_ch =='\\') && (peek_char() == '"'))
         	{
-				value_str += "\"";
+				current_ch = next_char();
+				value_str += current_ch;
 				text += "\\";
 				text += "\"";
-        		current_ch = next_char();
+
         		current_ch = next_char();
 
         	}
+		if ((current_ch != '"') && (current_ch != Source::END_OF_FILE))
+		        {
+		            text += current_ch;
+		            value_str  += current_ch;
+		            current_ch = next_char();  // consume character
+		        }
 
 
     } while ((current_ch != '"') && (current_ch != Source::END_OF_FILE));
