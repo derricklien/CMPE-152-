@@ -81,6 +81,13 @@ void CppParserTD::parse() throw (string)
                 break;
             }
 
+            case CppT_CHARACTER:
+            {
+            	type_str = "CHARACTER";
+            	value_str = cast(value, string);
+            	break;
+            }
+
             case CppT_ERROR: break;
 
             default:  // reserved word or special character

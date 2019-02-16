@@ -18,6 +18,7 @@
 #include "tokens/CppSpecialSymbolToken.h"
 #include "tokens/CppStringToken.h"
 #include "tokens/CppWordToken.h"
+#include "tokens/CppCharacterToken.h"
 
 namespace wci { namespace frontend { namespace cpp {
 
@@ -56,6 +57,10 @@ Token *CppScanner::extract_token() throw (string)
     else if (current_ch == '\"')
     {
         token = new CppStringToken(source);
+    }
+    else if(current_ch == '\'')
+    {
+    	token = new CppCharacterToken(source);
     }
     else if (CppToken::SPECIAL_SYMBOLS.find(string_ch)
                 != CppToken::SPECIAL_SYMBOLS.end())
