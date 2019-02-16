@@ -6,13 +6,13 @@
  * <p>Copyright (c) 2017 by Ronald Mak</p>
  * <p>For instructional purposes only.  No warranties.</p>
  */
-#include "CppScanner.h"
+#include "../cpp/CppScanner.h"
 
 #include <iostream>
 
+#include "../cpp/CppError.h"
+#include "../cpp/CppToken.h"
 #include "../Source.h"
-#include "CppError.h"
-#include "CppToken.h"
 #include "tokens/CppErrorToken.h"
 #include "tokens/CppNumberToken.h"
 #include "tokens/CppSpecialSymbolToken.h"
@@ -53,7 +53,7 @@ Token *CppScanner::extract_token() throw (string)
     {
         token = new CppNumberToken(source);
     }
-    else if (current_ch == '\'')
+    else if (current_ch == '\"')
     {
         token = new CppStringToken(source);
     }
@@ -73,44 +73,59 @@ Token *CppScanner::extract_token() throw (string)
 
 void CppScanner::skip_white_space() throw (string)
 {
-	char current_ch = current_char();
+    char current_ch = current_char();
 
-	    while (isspace(current_ch) || (current_ch == '/')) {
+    while (isspace(current_ch) || (current_ch == '/')) {
 
-	        // Start of a comment?
-	        if (current_ch == '/')
-	        {
-	        	current_ch = next_char();
-	        	if(current_ch == '*')
-	        	{
-					do
-					{
-						current_ch = next_char();  // consume comment characters
-					} while ((current_ch != '*') &&
-							 (current_ch != Source::END_OF_FILE));
+        // Start of a comment?
+        if (current_ch == '/')
+        {
+        	current_ch = next_char();
+        	if(current_ch == '/')
+			{
+        		current_ch = next_char();
+				do
+				{
+					current_ch = next_char();
+				} while (current_ch != Source::END_OF_LINE);
+			}
 
-					// Found closing '}'?
-					if (current_ch == '*')
+        	else if(current_ch == '*')
+        	{
+        		current_ch = next_char();
+				do
+				{
+					current_ch = next_char();  // consume comment characters
+				} while ((current_ch != '*') &&
+						 (current_ch != Source::END_OF_FILE));
+
+				// Found closing '}'?
+				if (current_ch == '*')
+				{
+					current_ch = next_char();
+
+
+					if(current_ch == '/')
 					{
 						current_ch = next_char();
-						if(current_ch == '/')
-						{
-							current_ch = next_char();  // consume the '}'
-						}
-					}
-	        	}
-	        	if(current_ch == '/')
-	        	{
-	        		do
-	        		{
-	        			current_ch = next_char();
-	        		} while (current_ch != Source::END_OF_LINE);
-	        	}
-	        }
 
-	        // Not a comment.
-	        else current_ch = next_char();  // consume whitespace character
-	    }
+					}
+					else{
+						do
+						{
+							current_ch = next_char();
+						}while ((current_ch != '/') &&
+								(current_ch != Source::END_OF_FILE));
+					}
+
+				}
+        	}
+
+        }
+
+        // Not a comment.
+        else current_ch = next_char();  // consume whitespace character
+    }
 }
 
-}}} // namespace wci::frontend::cpp
+}}} // namespace wci::frontend::pascal
