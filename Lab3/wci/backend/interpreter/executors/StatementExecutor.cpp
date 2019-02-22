@@ -18,6 +18,7 @@
 #include "../../../intermediate/ICodeNode.h"
 #include "../../../intermediate/icodeimpl/ICodeNodeImpl.h"
 #include "../../../message/Message.h"
+#include "WhenExecutor.h"
 
 namespace wci { namespace backend { namespace interpreter { namespace executors {
 
@@ -70,6 +71,12 @@ Object StatementExecutor::execute(ICodeNode *node)
         {
             SelectExecutor select_executor(this);
             return select_executor.execute(node);
+        }
+
+        case NT_WHEN:
+        {
+        	WhenExecutor when_executor(this);
+        	return when_executor.execute(node);
         }
 
         case NT_NO_OP: return Object();  // empty
