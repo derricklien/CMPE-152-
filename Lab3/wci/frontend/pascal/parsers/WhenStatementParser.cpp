@@ -1,5 +1,5 @@
 /**
- * <h1>CaseStatementParser</h1>
+ * <h1>WhenStatementParser</h1>
  *
  * <p>Parse a Pascal CASE statement.</p>
  *
@@ -173,10 +173,7 @@ ICodeNode *WhenStatementParser::parse_branch(Token *token,
     return branch_node;
 }
 
-void CaseStatementParser::parse_constant_list(Token *token,
-                                              ICodeNode *constants_node,
-                                              set<int>& constant_set)
-    throw (string)
+void WhenStatementParser::parse_constant_list(Token *token,ICodeNode *constants_node,set<int>& constant_set) throw (string)
 {
     // Loop to parse each constant.
     while (CONSTANT_START_SET.find((PascalTokenType) token->get_type())
@@ -204,7 +201,7 @@ void CaseStatementParser::parse_constant_list(Token *token,
     }
 }
 
-ICodeNode *CaseStatementParser::parse_constant(Token *token,
+ICodeNode *WhenStatementParser::parse_constant(Token *token,
                                                set<int>& constant_set)
     throw (string)
 {
@@ -274,7 +271,7 @@ ICodeNode *CaseStatementParser::parse_constant(Token *token,
     return constant_node;
 }
 
-ICodeNode *CaseStatementParser::parse_identifier_constant(
+ICodeNode *WhenStatementParser::parse_identifier_constant(
                                      Token *token, const bool minus_sign)
     throw (string)
 {
@@ -283,7 +280,7 @@ ICodeNode *CaseStatementParser::parse_identifier_constant(
     return nullptr;
 }
 
-ICodeNode *CaseStatementParser::parse_integer_constant(
+ICodeNode *WhenStatementParser::parse_integer_constant(
                               const string value, const bool minus_sign)
 {
     ICodeNode *constant_node =
@@ -297,7 +294,7 @@ ICodeNode *CaseStatementParser::parse_integer_constant(
     return constant_node;
 }
 
-ICodeNode *CaseStatementParser::parse_character_constant(
+ICodeNode *WhenStatementParser::parse_character_constant(
                  Token *token, const string value, const bool minus_sign)
 {
     ICodeNode *constant_node = nullptr;
