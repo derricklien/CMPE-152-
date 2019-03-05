@@ -47,6 +47,7 @@ void PascalError::initialize()
         PascalErrorCode::INVALID_TYPE,
         PascalErrorCode::INVALID_VAR_PARM,
         PascalErrorCode::MIN_GT_MAX,
+		PascalErrorCode::MISSING_ARROW, //for the WHEN statement
         PascalErrorCode::MISSING_BEGIN,
         PascalErrorCode::MISSING_COLON,
         PascalErrorCode::MISSING_COLON_EQUALS,
@@ -60,6 +61,7 @@ void PascalError::initialize()
         PascalErrorCode::MISSING_IDENTIFIER,
         PascalErrorCode::MISSING_LEFT_BRACKET,
         PascalErrorCode::MISSING_OF,
+		PascalErrorCode::MISSING_OTHERWISE,
         PascalErrorCode::MISSING_PERIOD,
         PascalErrorCode::MISSING_PROGRAM,
         PascalErrorCode::MISSING_RIGHT_BRACKET,
@@ -125,6 +127,7 @@ void PascalError::initialize()
         "Missing identifier",
         "Missing [",
         "Missing OF",
+		"Missing OTHERWISE",
         "Missing .",
         "Missing PROGRAM",
         "Missing ]",

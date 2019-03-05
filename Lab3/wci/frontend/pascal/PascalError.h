@@ -43,6 +43,7 @@ enum class PascalErrorCode
     INVALID_TYPE,
     INVALID_VAR_PARM,
     MIN_GT_MAX,
+	MISSING_ARROW, //for the WHEN statement
     MISSING_BEGIN,
     MISSING_COLON,
     MISSING_COLON_EQUALS,
@@ -107,6 +108,7 @@ constexpr PascalErrorCode INVALID_TARGET = PascalErrorCode::INVALID_TARGET;
 constexpr PascalErrorCode INVALID_TYPE = PascalErrorCode::INVALID_TYPE;
 constexpr PascalErrorCode INVALID_VAR_PARM = PascalErrorCode::INVALID_VAR_PARM;
 constexpr PascalErrorCode MIN_GT_MAX = PascalErrorCode::MIN_GT_MAX;
+constexpr PascalErrorCode MISSING_ARROW = PascalErrorCode::MISSING_ARROW;
 constexpr PascalErrorCode MISSING_BEGIN = PascalErrorCode::MISSING_BEGIN;
 constexpr PascalErrorCode MISSING_COLON = PascalErrorCode::MISSING_COLON;
 constexpr PascalErrorCode MISSING_COMMA = PascalErrorCode::MISSING_COMMA;
