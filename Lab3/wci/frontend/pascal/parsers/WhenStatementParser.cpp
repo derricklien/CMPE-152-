@@ -71,21 +71,12 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 		error_handler.flag(token, MISSING_ARROW, this);
 	}
 
-<<<<<<< HEAD
 	// Parse the compound statement.
 	// The WHEN node adopts the statement subtree as its second child.
 	//For this, it would be the assignment
 	StatementParser statement_parser(this);
 	when_node->add_child(statement_parser.parse_statement(token));
 	token = current_token();
-=======
-    //Parse the => (much like the THEN statement)
-    //This will be the second child
-    StatementParser statement_parser(this);
-    when_node->add_child(statement_parser.parse_statement(token));
-    token = current_token();
-    token = next_token(token);
->>>>>>> branch 'master' of https://github.com/derricklien/CMPE-152-.git
 
 	token = next_token(token); //consumes the semicolon
 
@@ -161,4 +152,4 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 	return when_node;
 }
 
-}}}} // namespace wci::frontend::pascal::parsers
+}}}}  // namespace wci::frontend::pascal::parsers
