@@ -82,6 +82,7 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
     StatementParser statement_parser(this);
     when_node->add_child(statement_parser.parse_statement(token));
     token = current_token();
+    token = next_token(token);
 
     //Look for the semicolon
     if(token->get_type() == (TokenType) PT_SEMICOLON);
@@ -127,4 +128,4 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
     return when_node;
 }
 
-}}}}  // namespace wci::frontend::pascal::parsers
+}}}} // namespace wci::frontend::pascal::parsers
