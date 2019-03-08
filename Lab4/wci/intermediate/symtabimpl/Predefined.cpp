@@ -15,6 +15,7 @@
 #include "../SymTabStack.h"
 #include "../typeimpl/TypeSpecImpl.h"
 #include "../../Object.h"
+#include "../SymTabFactory.h"
 
 namespace wci { namespace intermediate { namespace symtabimpl {
 
@@ -30,6 +31,8 @@ TypeSpec *Predefined::boolean_type;
 TypeSpec *Predefined::char_type;
 TypeSpec *Predefined::complex_type;
 TypeSpec *Predefined::undefined_type;
+TypeSpec *Predefined::im_type;
+TypeSpec *Predefined::re_type;
 
 // Predefined identifiers.
 SymTabEntry *Predefined::integer_id;
@@ -46,7 +49,7 @@ void Predefined::initialize(SymTabStack *symtab_stack)
 {
     initialize_types(symtab_stack);
     initialize_constants(symtab_stack);
-    initialize_fields(symtab_stack);
+    //initialize_fields(symtab_stack);
 }
 
 /**
@@ -76,7 +79,7 @@ void Predefined::initialize_types(SymTabStack *symtab_stack)
     boolean_id->set_definition((Definition) DF_TYPE);
     boolean_id->set_typespec(boolean_type);
 
-    // Type char.
+    // Type char	.
     char_id = symtab_stack->enter_local("char");
     char_type = TypeFactory::create_type((TypeForm) TF_SCALAR);
     char_type->set_identifier(char_id);
@@ -89,6 +92,15 @@ void Predefined::initialize_types(SymTabStack *symtab_stack)
     complex_type->set_identifier(complex_id);
     complex_id->set_definition((Definition) DF_TYPE);
     complex_id->set_typespec(complex_type);
+
+    SymTab* symtab = SymTabFactory::create_symtab(0);
+    SymTabEntry* re_id = symtab->enter("re");
+    SymTabEntry* im_id = symtab->enter("im");
+    re_id->set_typespec(real_type);
+    im_id->set_typespec(real_type);
+    re_id->set_definition((Definition) DF_TYPE);
+    im_id->set_definition((Definition) DF_TYPE);
+    complex_type->set_attribute((TypeKey) RECORD_SYMTAB,symtab);
 
     // Undefined type.
     undefined_type = TypeFactory::create_type((TypeForm) TF_SCALAR);
@@ -114,27 +126,6 @@ void Predefined::initialize_constants(SymTabStack *symtab_stack)
     constants.push_back(true_id);
     boolean_type->set_attribute((TypeKey) ENUMERATION_CONSTANTS,
                                 constants);
-}
-
-void Predefined::initialize_fields(SymTabStack *symtab_stack)
-{
-    // re
-    re_id = symtab_stack->enter_local("re");
-    re_id->set_definition((Definition) DF_FIELD);
-    re_id->set_typespec(real_type);
-    re_id->set_attribute((SymTabKey) DATA_VALUE, 0);
-
-    // im
-    im_id = symtab_stack->enter_local("im");
-    im_id->set_definition((Definition) DF_FIELD);
-    im_id->set_typespec(real_type);
-    im_id->set_attribute((SymTabKey) DATA_VALUE, 1);
-
-    // Add re and im to the complex field type.
-    vector<SymTabEntry *> fields;
-    fields.push_back(re_id);
-    fields.push_back(im_id);
-    complex_type->set_attribute((TypeKey) RECORD_SYMTAB, fields);
 }
 
 }}}  // namespace wci::intermediate::symtabimpl
