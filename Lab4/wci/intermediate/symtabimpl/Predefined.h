@@ -29,6 +29,8 @@ public:
     static TypeSpec *char_type;
     static TypeSpec *complex_type;
     static TypeSpec *undefined_type;
+    static TypeSpec *re_type;
+    static TypeSpec *im_type;
 
     // Predefined identifiers.
     static SymTabEntry *integer_id;
@@ -64,7 +66,6 @@ private:
      * Initialize the predefined field.
      * @param symtab_stack the symbol table stack to initialize.
      */
-    static void initialize_fields(SymTabStack *symtab_stack);
 };
 
 }}}  // namespace wci::intermediate::symtabimpl
