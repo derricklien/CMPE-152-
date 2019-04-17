@@ -10,12 +10,13 @@ statements : statement*;
 statement : expr |
 			expr NEWLINE |
 			assignment_statement |
-			function_call |
 			string_declare |
 			bool_declare |
 			int_declare |
 			bootleg_for_loop | //loop
-			if_statement //conditional 
+			if_statement |//conditional 
+			function_call |
+			function_declare
 			; 
 
 expr: 	'(' expr ')' |
@@ -23,11 +24,12 @@ expr: 	'(' expr ')' |
 		expr (PLUS|MINUS) expr | 
 		expr (LESS_THAN|GREATER_THAN|LT_EQ|GT_EQ|EQEQ) expr |
 		ID |
-		INT;
+		INT
+		;
 		
 assignment_statement: ID '=' expr ';';
 
-function_call: VAR '(' ')' ';';//ID '(' ')' ';';
+
 // needs to replace var to include special characters and exclude "
 string_declare: STRING VAR '=' '"'INT? VAR '"' ';';
 
@@ -37,7 +39,11 @@ int_declare: INTEGER VAR '=' INT ';' ;
 
 bootleg_for_loop: FOR '(' int_declare VAR LESS_THAN INT ';' VAR'++' ')' '{' statement '}';//FOR INT(statement)? ';';
 
-if_statement: IF expr '{' statement '}'(ELSE '{' statement)? '}';
+if_statement: IF expr '{' statement* '}' ELSE ( if_statement | '{' statement* '}');
+
+function_call: VAR '(' ')' ';';
+
+function_declare: VAR (bool_declare | ) '{' statement '}' ';' ;
 
 /*************
  * LEXER RULES
@@ -57,9 +63,6 @@ EQEQ: '==';
 /* TYPES */
 INT: DIGIT+;
 
-/* COMMENTS */
-
-
 /* NEWLINE AND WHITESPACE */
 NEWLINE : '\r'? '\n' ->skip;
 WS: (' ' | '\t')+ -> skip;
@@ -76,7 +79,7 @@ FOURTWENTY: 'Lit';
 INTEGER: 'int';
 
 VAR: ID;
-ID:	[a-z]+;
+ID:	[a-zA-z]+;
 DIGIT     : [0-9]+ ;
 
 //prog: stat*;

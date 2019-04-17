@@ -1,15 +1,24 @@
-f();
-Gucci a = "test";
-ForRealTho b = YAASSS;
+F();
+Gucci a = "stringtest";
+
+ForRealTho boolean = YAASSS;
+
 YallWhatIf(3 + 2)
 {
 	6*2
+	9
 }
 Fam
 {
 	3
 }
+
 Esketit(int i = 0; i < 5; i++)
 {
 	3
 }
+
+samplefunction
+{
+	6
+};
