@@ -1,10 +1,31 @@
 grammar Expr;
 
-prog: stat*;
+prog:string_declare 
+	 
+	 //make it so that each one can run without affecting the other
+	 //bool_declare
+	 //function_declare
+	 //function_call
+	 stat*;
+	
+	
+	
+	 
+// needs to replace var to include special characters and exclude "
+string_declare : String var '=' '"'INT? var '"' ';';
+
+bool_declare : Bool var '=' (True | False)';' ;
+
+function_declare: var (bool_declare | ) '{' stat '}' ';' ;
+
+function_call: var '(' (bool_declare | ) ')' ';' ;
 
 stat: expr NEWLINE
 	| ID '=' expr NEWLINE
 	| NEWLINE
+	| bootleg_for_loop
+	| assignment
+	| if_statement
 	;
 
 expr: expr ('*'|'/') expr
@@ -13,13 +34,6 @@ expr: expr ('*'|'/') expr
 	|ID
 	|'(' expr ')'
 	;
-	
-// Declarations	
-ID:	[a=zA-Z][a-zA-Z0-9]+;
-INT     : [0-9]+ ;	
-NEWLINE : [\r\n]+ ;
-WS: [\t]+ -> skip;
-
 
 //Custom Keywords
 For: 'Esketit';
@@ -30,28 +44,22 @@ Bool: 'ForRealTho';
 True: 'YAASSS';
 False: 'Yikes';
 FourTwenty: 'Lit'; 
-
-// Statements
-stmt: bootleg_for_loop
-	| assignment
-	| if_statement
-	|
-	;
 	
+// Declarations	
+ID:	[a-zA-Z][a-zA-Z0-9]+;
+INT     : [0-9]+ ;	
+NEWLINE : [\r\n]+ ;
+WS: [\t]+ -> skip;
+
 var : ID;
 assignment : var '=' expr';';
 
 // Loops
-bootleg_for_loop: For INT(stmt)?  ';'; 
+bootleg_for_loop: For INT(stat)?  ';'; 
 
 // Conditionals
-if_statement: If expr stmt (Else stmt)? ;
+if_statement: If expr stat (Else stat)? ;
 
-// needs to replace var to include special characters and exclude "
-string_declare : String var '=' '"' INT? var '"' ';' ;
 
-bool_declare : Bool var '=' (True | False)';';
 
-function_declare: var (bool_declare | ) '{' stmt '}' ';' ;
 
-function_call: var '(' (bool_declare | ) ')' ';' ;
