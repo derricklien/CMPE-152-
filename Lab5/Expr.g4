@@ -1,46 +1,57 @@
 grammar Expr;
 
-/*
- 	• Regular expressions that define your language tokens.
-	• Expressions with numeric constants and scalar variables. (No type checking and no arrays or records yet for this assignment.)
-	• Assignment statements.
-	• Conditional statements (at least one, such as IF).
-	• Looping statements (at least one).
-	• Variable declarations (at least two datatypes).
-	• Procedure and function declarations with value or reference parameters.
-	• Procedure and function calls.
-	• Type definitions. (Do later, not for this assignment.)
- */
+prog: stat*;
 
-prog: (expr NEWLINE)* ;
-expr: expr ('*'|'/') expr | 
-		expr ('+'|'-') expr | INT | '(' expr ')';
-NEWLINE: [\r\n]+;
-INT: [0-9]+;
-variable : IDENTIFIER ;
-compound_stmt : '{' stmt_list '}' ;
-stmt_list       : stmt ( ';' stmt )* ;
-stmt : compound_stmt    # compoundStmt
-     | assignment_stmt  # assignmentStmt
-     |                  # emptyStmt
-     ;
-     
+stat: expr NEWLINE
+	| ID '=' expr NEWLINE
+	| NEWLINE
+	;
 
-assignment_stmt : variable '=' expr ';';
-//if_stmt         : IF expr THEN stmt ( ELSE stmt )? ;
+expr: expr ('*'|'/') expr
+	|expr ('+'|'-') expr
+	|INT
+	|ID
+	|'(' expr ')'
+	;
+	
+// Declarations	
+ID:	[a=zA-Z][a-zA-Z0-9]+;
+INT     : [0-9]+ ;	
+NEWLINE : [\r\n]+ ;
+WS: [\t]+ -> skip;
 
 
-IDENTIFIER : [a-zA-Z][a-zA-Z0-9]* ;
-INTEGER    : [0-9]+ ;
+//Custom Keywords
+For: 'Esketit';
+If: 'YallWhatIf';
+Else: 'Fam';
+String: 'Gucci';
+Bool: 'ForRealTho';
+True: 'YAASSS';
+False: 'Yikes';
+FourTwenty: 'Lit'; 
 
-MUL_OP :   '*' ;
-DIV_OP :   '/' ;
-ADD_OP :   '+' ;
-SUB_OP :   '-' ;
+// Statements
+stmt: bootleg_for_loop
+	| assignment
+	| if_statement
+	|
+	;
+	
+var : ID;
+assignment : var '=' expr';';
 
-EQ_OP : '=' ;
-NE_OP : '<>' ;
-LT_OP : '<' ;
-LE_OP : '<=' ;
-GT_OP : '>' ;
-GE_OP : '>=' ;
+// Loops
+bootleg_for_loop: For INT(stmt)?  ';'; 
+
+// Conditionals
+if_statement: If expr stmt (Else stmt)? ;
+
+// needs to replace var to include special characters and exclude "
+string_declare : String var '=' '"' INT? var '"' ';' ;
+
+bool_declare : Bool var '=' (True | False)';';
+
+function_declare: var (bool_declare | ) '{' stmt '}' ';' ;
+
+function_call: var '(' (bool_declare | ) ')' ';' ;
