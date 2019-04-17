@@ -10,11 +10,11 @@ statements : statement*;
 statement : expr |
 			expr NEWLINE |
 			assignment_statement |
-			string_declare |
-			bool_declare |
-			int_declare |
+			string_declare | //datatype
+			bool_declare | //dataype
+			int_declare | //datatype
 			bootleg_for_loop | //loop
-			if_statement |//conditional 
+			if_statement | //conditional 
 			function_call |
 			function_declare
 			; 
