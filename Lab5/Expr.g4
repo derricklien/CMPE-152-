@@ -13,13 +13,15 @@ statement : expr |
 			function_call |
 			string_declare |
 			bool_declare |
+			int_declare |
 			bootleg_for_loop | //loop
-			if_statement //conditional
+			if_statement //conditional 
 			; 
 
 expr: 	'(' expr ')' |
 		expr (MUL|DIV) expr |
 		expr (PLUS|MINUS) expr | 
+		expr (LESS_THAN|GREATER_THAN|LT_EQ|GT_EQ|EQEQ) expr |
 		ID |
 		INT;
 		
@@ -31,9 +33,11 @@ string_declare: STRING VAR '=' '"'INT? VAR '"' ';';
 
 bool_declare: BOOL VAR '=' (TRUE|FALSE) ';';
 
-bootleg_for_loop: FOR INT(statement)? ';';
+int_declare: INTEGER VAR '=' INT ';' ;
 
-if_statement: IF expr statement (ELSE statement)?;
+bootleg_for_loop: FOR '(' int_declare VAR LESS_THAN INT ';' VAR'++' ')' '{' statement '}';//FOR INT(statement)? ';';
+
+if_statement: IF expr '{' statement '}'(ELSE '{' statement)? '}';
 
 /*************
  * LEXER RULES
@@ -44,6 +48,11 @@ PLUS: '+';
 MINUS: '-';
 MUL: '*';
 DIV: '/';
+LESS_THAN: '<';
+GREATER_THAN: '>';
+LT_EQ: '<=';
+GT_EQ: '>=';
+EQEQ: '==';
 
 /* TYPES */
 INT: DIGIT+;
@@ -64,6 +73,7 @@ BOOL: 'ForRealTho';
 TRUE: 'YAASSS';
 FALSE: 'Yikes';
 FOURTWENTY: 'Lit';
+INTEGER: 'int';
 
 VAR: ID;
 ID:	[a-z]+;
