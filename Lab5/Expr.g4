@@ -43,7 +43,7 @@ if_statement: IF expr '{' statement* '}' ELSE ( if_statement | '{' statement* '}
 
 function_call: VAR '(' ')' ';';
 
-function_declare: VAR (bool_declare | ) '{' statement '}' ';' ;
+function_declare: VAR '(' (bool_declare | ) ')' '{' statement '}' ';' ;
 
 /*************
  * LEXER RULES
