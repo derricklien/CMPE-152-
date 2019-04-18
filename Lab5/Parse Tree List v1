@@ -1,0 +1,3 @@
+Parse tree (Lisp format):
+(prog (statements (statement (assignment_statement cat = (expr dog) ;)) (statement (expr (expr 10) + (expr 2))) (statement (if_statement YallWhatIf (expr ( (expr (expr i) < (expr 9)) )) { (statement (string_declare Gucci string = " test " ;)) } Fam { (statement (string_declare Gucci string = " test " ;)) })) (statement (bootleg_for_loop Esketit ( (int_declare int i = 1 ;) i < 5 ; i ++ ) { (statement (string_declare Gucci string = " hey " ;)) })) (statement (string_declare Gucci string = " string " ;)) (statement (bool_declare ForRealTho booltest = Yikes ;)) (statement (function_declare function ( ForRealTho s ) { (statement (string_declare Gucci string = " k " ;)) })) (statement (function_call functioncall ( ) ;))))
+
