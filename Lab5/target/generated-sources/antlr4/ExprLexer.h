@@ -12,10 +12,11 @@
 class  ExprLexer : public antlr4::Lexer {
 public:
   enum {
-    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, NEWLINE = 6, INT = 7, 
-    IDENTIFIER = 8, INTEGER = 9, MUL_OP = 10, DIV_OP = 11, ADD_OP = 12, 
-    SUB_OP = 13, EQ_OP = 14, NE_OP = 15, LT_OP = 16, LE_OP = 17, GT_OP = 18, 
-    GE_OP = 19
+    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
+    T__7 = 8, PLUS = 9, MINUS = 10, MUL = 11, DIV = 12, LESS_THAN = 13, 
+    GREATER_THAN = 14, LT_EQ = 15, GT_EQ = 16, EQEQ = 17, INT = 18, NEWLINE = 19, 
+    WS = 20, FOR = 21, IF = 22, ELSE = 23, STRING = 24, BOOL = 25, TRUE = 26, 
+    FALSE = 27, FOURTWENTY = 28, INTEGER = 29, VAR = 30, ID = 31, DIGIT = 32
   };
 
   ExprLexer(antlr4::CharStream *input);

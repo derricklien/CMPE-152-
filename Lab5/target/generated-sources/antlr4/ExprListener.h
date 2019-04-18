@@ -17,29 +17,38 @@ public:
   virtual void enterProg(ExprParser::ProgContext *ctx) = 0;
   virtual void exitProg(ExprParser::ProgContext *ctx) = 0;
 
+  virtual void enterStatements(ExprParser::StatementsContext *ctx) = 0;
+  virtual void exitStatements(ExprParser::StatementsContext *ctx) = 0;
+
+  virtual void enterStatement(ExprParser::StatementContext *ctx) = 0;
+  virtual void exitStatement(ExprParser::StatementContext *ctx) = 0;
+
   virtual void enterExpr(ExprParser::ExprContext *ctx) = 0;
   virtual void exitExpr(ExprParser::ExprContext *ctx) = 0;
 
-  virtual void enterVariable(ExprParser::VariableContext *ctx) = 0;
-  virtual void exitVariable(ExprParser::VariableContext *ctx) = 0;
+  virtual void enterAssignment_statement(ExprParser::Assignment_statementContext *ctx) = 0;
+  virtual void exitAssignment_statement(ExprParser::Assignment_statementContext *ctx) = 0;
 
-  virtual void enterCompound_stmt(ExprParser::Compound_stmtContext *ctx) = 0;
-  virtual void exitCompound_stmt(ExprParser::Compound_stmtContext *ctx) = 0;
+  virtual void enterFunction_declare(ExprParser::Function_declareContext *ctx) = 0;
+  virtual void exitFunction_declare(ExprParser::Function_declareContext *ctx) = 0;
 
-  virtual void enterStmt_list(ExprParser::Stmt_listContext *ctx) = 0;
-  virtual void exitStmt_list(ExprParser::Stmt_listContext *ctx) = 0;
+  virtual void enterFunction_call(ExprParser::Function_callContext *ctx) = 0;
+  virtual void exitFunction_call(ExprParser::Function_callContext *ctx) = 0;
 
-  virtual void enterCompoundStmt(ExprParser::CompoundStmtContext *ctx) = 0;
-  virtual void exitCompoundStmt(ExprParser::CompoundStmtContext *ctx) = 0;
+  virtual void enterString_declare(ExprParser::String_declareContext *ctx) = 0;
+  virtual void exitString_declare(ExprParser::String_declareContext *ctx) = 0;
 
-  virtual void enterAssignmentStmt(ExprParser::AssignmentStmtContext *ctx) = 0;
-  virtual void exitAssignmentStmt(ExprParser::AssignmentStmtContext *ctx) = 0;
+  virtual void enterBool_declare(ExprParser::Bool_declareContext *ctx) = 0;
+  virtual void exitBool_declare(ExprParser::Bool_declareContext *ctx) = 0;
 
-  virtual void enterEmptyStmt(ExprParser::EmptyStmtContext *ctx) = 0;
-  virtual void exitEmptyStmt(ExprParser::EmptyStmtContext *ctx) = 0;
+  virtual void enterInt_declare(ExprParser::Int_declareContext *ctx) = 0;
+  virtual void exitInt_declare(ExprParser::Int_declareContext *ctx) = 0;
 
-  virtual void enterAssignment_stmt(ExprParser::Assignment_stmtContext *ctx) = 0;
-  virtual void exitAssignment_stmt(ExprParser::Assignment_stmtContext *ctx) = 0;
+  virtual void enterBootleg_for_loop(ExprParser::Bootleg_for_loopContext *ctx) = 0;
+  virtual void exitBootleg_for_loop(ExprParser::Bootleg_for_loopContext *ctx) = 0;
+
+  virtual void enterIf_statement(ExprParser::If_statementContext *ctx) = 0;
+  virtual void exitIf_statement(ExprParser::If_statementContext *ctx) = 0;
 
 
 };
