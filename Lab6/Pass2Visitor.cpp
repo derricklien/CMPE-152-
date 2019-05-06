@@ -65,56 +65,11 @@ antlrcpp::Any Pass2Visitor::visitMainBlock(Pcl2Parser::MainBlockContext *ctx)
     return value;
 }
 
-antlrcpp::Any Pass2Visitor::visitBlock(Pcl2Parser::BlockContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitDeclarations(Pcl2Parser::DeclarationsContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitDeclList(Pcl2Parser::DeclListContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitDecl(Pcl2Parser::DeclContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitVarList(Pcl2Parser::VarListContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitVarId(Pcl2Parser::VarIdContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitTypeId(Pcl2Parser::TypeIdContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitCompoundStmt(Pcl2Parser::CompoundStmtContext *ctx)
-{
-
-}
-
 antlrcpp::Any Pass2Visitor::visitStmt(Pcl2Parser::StmtContext *ctx)
 {
     j_file << endl << "; " + ctx->getText() << endl << endl;
 
     return visitChildren(ctx);
-}
-
-antlrcpp::Any Pass2Visitor::visitStmtList(Pcl2Parser::StmtListContext *ctx)
-{
-
 }
 
 antlrcpp::Any Pass2Visitor::visitAssignmentStmt(Pcl2Parser::AssignmentStmtContext *ctx)
@@ -134,47 +89,137 @@ antlrcpp::Any Pass2Visitor::visitAssignmentStmt(Pcl2Parser::AssignmentStmtContex
     return value;
 }
 
-antlrcpp::Any Pass2Visitor::visitIf_stmt(Pcl2Parser::If_stmtContext *ctx)
+antlrcpp::Any Pass2Visitor::visitAddSubExpr(Pcl2Parser::AddSubExprContext *ctx)
 {
+    auto value = visitChildren(ctx);
 
+    TypeSpec *type1 = ctx->expr(0)->type;
+    TypeSpec *type2 = ctx->expr(1)->type;
+
+    bool integer_mode =    (type1 == Predefined::integer_type)
+                        && (type2 == Predefined::integer_type);
+    bool real_mode    =    (type1 == Predefined::real_type)
+                        && (type2 == Predefined::real_type);
+
+    string op = ctx->addSubOp()->getText();
+    string opcode;
+
+    if (op == "+")
+    {
+        opcode = integer_mode ? "iadd"
+               : real_mode    ? "fadd"
+               :                "????";
+    }
+    else
+    {
+        opcode = integer_mode ? "isub"
+               : real_mode    ? "fsub"
+               :                "????";
+    }
+
+    // Emit an add or subtract instruction.
+    j_file << "\t" << opcode << endl;
+
+    return value;
 }
 
-antlrcpp::Any Pass2Visitor::visitVariable(Pcl2Parser::VariableContext *ctx)
+antlrcpp::Any Pass2Visitor::visitMulDivExpr(Pcl2Parser::MulDivExprContext *ctx)
 {
+    auto value = visitChildren(ctx);
 
+    TypeSpec *type1 = ctx->expr(0)->type;
+    TypeSpec *type2 = ctx->expr(1)->type;
+
+    bool integer_mode =    (type1 == Predefined::integer_type)
+                        && (type2 == Predefined::integer_type);
+    bool real_mode    =    (type1 == Predefined::real_type)
+                        && (type2 == Predefined::real_type);
+
+    string op = ctx->mulDivOp()->getText();
+    string opcode;
+
+    if (op == "*")
+    {
+        opcode = integer_mode ? "imul"
+               : real_mode    ? "fmul"
+               :                "????";
+    }
+    else
+    {
+        opcode = integer_mode ? "idpv"
+               : real_mode    ? "fdiv"
+               :                "????";
+    }
+
+    // Emit a multiply or divide instruction.
+    j_file << "\t" << opcode << endl;
+
+    return value;
 }
 
-antlrcpp::Any Pass2Visitor::visitExpr(Pcl2Parser::ExprContext *ctx)
+antlrcpp::Any Pass2Visitor::visitVariableExpr(Pcl2Parser::VariableExprContext *ctx)
 {
+    string variable_name = ctx->variable()->IDENTIFIER()->toString();
+    TypeSpec *type = ctx->type;
 
-}
+    string type_indicator = (type == Predefined::integer_type) ? "I"
+                          : (type == Predefined::real_type)    ? "F"
+                          :                                      "?";
 
-antlrcpp::Any Pass2Visitor::visitMulDivOp(Pcl2Parser::MulDivOpContext *ctx)
-{
+    // Emit a field get instruction.
+    j_file << "\tgetstatic\t" << program_name
+           << "/" << variable_name << " " << type_indicator << endl;
 
-}
-
-antlrcpp::Any Pass2Visitor::visitAddSubOp(Pcl2Parser::AddSubOpContext *ctx)
-{
-
-}
-
-antlrcpp::Any Pass2Visitor::visitRel_op(Pcl2Parser::Rel_opContext *ctx)
-{
-
+    return visitChildren(ctx);
 }
 
 antlrcpp::Any Pass2Visitor::visitSignedNumber(Pcl2Parser::SignedNumberContext *ctx)
 {
+    auto value = visitChildren(ctx);
+    TypeSpec *type = ctx->number()->type;
 
+    if (ctx->sign()->children[0] == ctx->sign()->SUB_OP())
+    {
+        string opcode = (type == Predefined::integer_type) ? "ineg"
+                      : (type == Predefined::real_type)    ? "fneg"
+                      :                                      "?neg";
+
+        // Emit a negate instruction.
+        j_file << "\t" << opcode << endl;
+    }
+
+    return value;
 }
 
-antlrcpp::Any Pass2Visitor::visitSign(Pcl2Parser::SignContext *ctx)
+antlrcpp::Any Pass2Visitor::visitIntegerConst(Pcl2Parser::IntegerConstContext *ctx)
 {
+    // Emit a load constant instruction.
+    j_file << "\tldc\t" << ctx->getText() << endl;
 
+    return visitChildren(ctx);
 }
 
-antlrcpp::Any Pass2Visitor::visitNumber(Pcl2Parser::NumberContext *ctx)
+antlrcpp::Any Pass2Visitor::visitFloatConst(Pcl2Parser::FloatConstContext *ctx)
+{
+    // Emit a load constant instruction.
+    j_file << "\tldc\t" << ctx->getText() << endl;
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any Pass2Visitor::visitIfStmt(Pcl2Parser::If_stmtContext *ctx)
 {
 
+
+
+	return NULL;	//temp, need to define
+}
+
+
+antlrcpp::Any Pass2Visitor::visitRepeatStmt(Pcl2Parser::Repeat_stmtContext *ctx)
+{
+
+
+
+	return NULL;	//temp, need to define
 }
