@@ -75,6 +75,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitIf_stmt(Pcl2Parser::If_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -83,7 +87,31 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExpr(Pcl2Parser::ExprContext *ctx) override {
+  virtual antlrcpp::Any visitVariableExpr(Pcl2Parser::VariableExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAddSubExpr(Pcl2Parser::AddSubExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitUnsignedNumberExpr(Pcl2Parser::UnsignedNumberExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitRelationalExpr(Pcl2Parser::RelationalExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitMulDivExpr(Pcl2Parser::MulDivExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitParenExpr(Pcl2Parser::ParenExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitSignedNumberExpr(Pcl2Parser::SignedNumberExprContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -107,7 +135,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitNumber(Pcl2Parser::NumberContext *ctx) override {
+  virtual antlrcpp::Any visitIntegerConst(Pcl2Parser::IntegerConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFloatConst(Pcl2Parser::FloatConstContext *ctx) override {
     return visitChildren(ctx);
   }
 
