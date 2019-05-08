@@ -205,18 +205,50 @@ antlrcpp::Any Pass2Visitor::visitFloatConst(Pcl2Parser::FloatConstContext *ctx)
     j_file << "\tldc\t" << ctx->getText() << endl;
 
     return visitChildren(ctx);
+
 }
 
-antlrcpp::Any Pass2Visitor::visitIfStmt(Pcl2Parser::If_stmtContext *ctx)
+antlrcpp::Any Pass2Visitor::visitIf_stmt(Pcl2Parser::If_stmtContext *ctx)
 {
+	/*
+	 int math_expression_size = ctx->stmt();
+	    int original_label       = label_num;
+	    int statement_size       = ctx->statementList().size();
 
+	    int current_label;
 
+	    bool has_else = (math_expression_size < statement_size) ? true : false;
 
-	return NULL;	//temp, need to define
+	    int last_label = label_num + math_expression_size;
+
+	    for(int i = 0; i < math_expression_size; i++)
+	    {
+	    	visit(ctx->mathExpr(i));
+	    }
+
+	    if(has_else)
+	    {
+	    	visitChildren(ctx->statementList(statement_size - 1));
+	    }
+
+	    j_file << "\tgoto " << "Label_" << last_label << endl;
+
+	    for(int i = 0; i < math_expression_size; i++)
+		{
+	    	current_label = original_label++;
+	    	j_file << "Label_" << current_label << ":" << endl;
+	    	visitChildren(ctx->statementList(i));
+			j_file << "\tgoto " << "Label_" << last_label << endl;
+		}
+	    j_file << "Label_" << last_label << ":" << endl;
+	    label_num++;
+	return NULL;
+		*/
+	return NULL;
 }
 
 
-antlrcpp::Any Pass2Visitor::visitRepeatStmt(Pcl2Parser::Repeat_stmtContext *ctx)
+antlrcpp::Any Pass2Visitor::visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *ctx)
 {
 
 

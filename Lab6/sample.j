@@ -47,25 +47,9 @@
 
 ; IFi<=jTHENi:=j
 
-	getstatic	sample/i I
-	getstatic	sample/j I
-
-; i:=j
-
-	getstatic	sample/j I
-	putstatic	sample/i I
 
 ; REPEATi:=i+1UNTILi=5
 
-
-; i:=i+1
-
-	getstatic	sample/i I
-	ldc	1
-	iadd
-	putstatic	sample/i I
-	getstatic	sample/i I
-	ldc	5
 
 ; 
 

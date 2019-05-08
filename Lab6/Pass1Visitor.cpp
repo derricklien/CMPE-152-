@@ -265,7 +265,7 @@ antlrcpp::Any Pass1Visitor::visitParenExpr(Pcl2Parser::ParenExprContext *ctx)
 
 antlrcpp::Any Pass1Visitor::visitRelationalExpr(Pcl2Parser::RelationalExprContext *ctx)
 {
-	auto value = visitChildren(ctx);
+	/*auto value = visitChildren(ctx);
 
 	    TypeSpec *type1 = ctx->expr(0)->type;
 	    TypeSpec *type2 = ctx->expr(1)->type;
@@ -281,5 +281,7 @@ antlrcpp::Any Pass1Visitor::visitRelationalExpr(Pcl2Parser::RelationalExprContex
 	    ctx->type = type;
 
 	    return value;
+	    */
+	return NULL;
 }
 

@@ -36,8 +36,8 @@ public:
     antlrcpp::Any visitSignedNumber(Pcl2Parser::SignedNumberContext *ctx) override;
     antlrcpp::Any visitIntegerConst(Pcl2Parser::IntegerConstContext *ctx) override;
     antlrcpp::Any visitFloatConst(Pcl2Parser::FloatConstContext *ctx) override;
-    antlrcpp::Any visitIfStmt(Pcl2Parser::If_stmtContext *ctx) override;
-    antlrcpp::Any visitRepeatStmt(Pcl2Parser::Repeat_stmtContext *ctx) override;
+    antlrcpp::Any visitIf_stmt(Pcl2Parser::If_stmtContext *ctx) override;
+    antlrcpp::Any visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *ctx) override;
 };
 
 #endif /* PASS2VISITOR_H_ */
