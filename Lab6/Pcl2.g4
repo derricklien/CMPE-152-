@@ -21,17 +21,15 @@ compoundStmt : BEGIN stmtList END ;
 
 stmt : compoundStmt
      | assignmentStmt
-     | repeat_stmt
+     | while_stmt
      | if_stmt 
      |
      ;
      
 stmtList       : stmt ( ';' stmt )* ;
 assignmentStmt : variable ':=' expr ;
-repeat_stmt     : REPEAT stmtList UNTIL expr ;
-if_stmt         : IF expr THEN stmt ( ELSE stmt )? ;
-
-variable : IDENTIFIER ;
+while_stmt     : WHILE '(' expr ')' expr ;
+if_stmt         : IF '(' expr ')'  stmt;
 
 expr locals [ TypeSpec *type = nullptr ]
     : expr mulDivOp expr   # mulDivExpr
@@ -52,6 +50,8 @@ signedNumber locals [ TypeSpec *type = nullptr ]
     ;
 sign : ADD_OP | SUB_OP ;
 
+variable : IDENTIFIER ;
+
 number locals [ TypeSpec *type = nullptr ]
     : INTEGER    # integerConst
     | FLOAT      # floatConst
@@ -61,11 +61,12 @@ PROGRAM : 'PROGRAM' ;
 VAR     : 'VAR' ;
 BEGIN   : 'BEGIN' ;
 END     : 'END' ;
-REPEAT	: 'REPEAT' ;
 UNTIL	: 'UNTIL' ;
 IF		: 'IF' ;
 THEN	: 'THEN' ;
 ELSE	: 'ELSE' ;
+WHILE   : 'WHILE' ;
+
 
 IDENTIFIER : [a-zA-Z][a-zA-Z0-9]* ;
 INTEGER    : [0-9]+ ;
@@ -76,7 +77,7 @@ DIV_OP :   '/' ;
 ADD_OP :   '+' ;
 SUB_OP :   '-' ;
 
-EQ_OP : '=' ;
+EQ_OP : '==' ;
 NE_OP : '<>' ;
 LT_OP : '<' ;
 LE_OP : '<=' ;

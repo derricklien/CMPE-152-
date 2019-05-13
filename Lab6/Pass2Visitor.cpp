@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <vector>
+
 
 #include "Pass2Visitor.h"
 #include "wci/intermediate/SymTabStack.h"
@@ -207,51 +209,73 @@ antlrcpp::Any Pass2Visitor::visitFloatConst(Pcl2Parser::FloatConstContext *ctx)
     return visitChildren(ctx);
 
 }
-
+int label = 0;
+int label_num = 0;
 antlrcpp::Any Pass2Visitor::visitIf_stmt(Pcl2Parser::If_stmtContext *ctx)
 {
-	/*
-	 int math_expression_size = ctx->stmt();
-	    int original_label       = label_num;
-	    int statement_size       = ctx->statementList().size();
+	string type_indicator = (ctx->expr()->type == Predefined::integer_type) ? "I"
+	                      : (ctx->expr()->type == Predefined::char_type)    ? "C"
+	                      :                                      "?";
+/*
+	j_file << "\tgetstatic " << program_name << "/" << ctx->expr()->getStart()->getText() << " " << type_indicator << endl;
 
-	    int current_label;
 
-	    bool has_else = (math_expression_size < statement_size) ? true : false;
+	//variable i
+	j_file << "\tistore 1" << endl;
+	j_file << "\tiload 1" << endl;
 
-	    int last_label = label_num + math_expression_size;
+	//variable j
+	//j_file << "\tldc " << ctx->expr()->getText()<<endl;
+	j_file << "\tistore 2" << endl;
+	j_file << "\tiload2" << endl;
+*/
+	//if portion
+	//greater than or equation to instruct
+	//if i<=j is true, jump to label01
 
-	    for(int i = 0; i < math_expression_size; i++)
-	    {
-	    	visit(ctx->mathExpr(i));
-	    }
+//	j_file << "\tif_icmpeq    " << "\t Label01" << endl; cant get type
 
-	    if(has_else)
-	    {
-	    	visitChildren(ctx->statementList(statement_size - 1));
-	    }
 
-	    j_file << "\tgoto " << "Label_" << last_label << endl;
 
-	    for(int i = 0; i < math_expression_size; i++)
-		{
-	    	current_label = original_label++;
-	    	j_file << "Label_" << current_label << ":" << endl;
-	    	visitChildren(ctx->statementList(i));
-			j_file << "\tgoto " << "Label_" << last_label << endl;
-		}
-	    j_file << "Label_" << last_label << ":" << endl;
-	    label_num++;
-	return NULL;
-		*/
-	return NULL;
+	//j_file << "\tgoto" << "\tLabel02" << endl;
+//	j_file << "\tLabel01" << endl;
+
+	//then portion
+	// assigning j to i
+	/*j_file << "\tiload 2 " << endl;
+	j_file << "\tldc 1" << endl;
+	j_file << "\tistore 1   " << endl;
+
+
+	j_file << "\tLabel02: " << endl;
+
+	*/
+	return 1;
 }
 
 
-antlrcpp::Any Pass2Visitor::visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *ctx)
+antlrcpp::Any Pass2Visitor::visitWhile_stmt(Pcl2Parser::While_stmtContext *ctx)
 {
+	/*
+	string type_indicator = (ctx->expr()->type == Predefined::integer_type) ? "I"
+		                      : (ctx->expr()->type == Predefined::char_type)? "C"
+		                      :                                     		 "?";
+*/
+		//j_file << "\ticonst_0 " << endl;
+	//	j_file << "\tistore 1  " << endl;
+		//j_file << "\tldc 1" << endl;
+		//j_file << "\tiload 1 " << endl;
 
+		//j_file << "\tif_cmpneq" << "\tNOT_EQUAL " << endl;
+		//j_file << "\tgoto EQUAL" << endl;
+/*
+		j_file << "\t EQUAL:" << endl;
+		j_file << "\tiload 1 " << endl;
+		//j_file << "\tiinc" << endl;
+		j_file << "\tistore 1" << endl;
 
-
-	return NULL;	//temp, need to define
+		j_file << "\tgoto EQUAL" << endl;
+		j_file << "\tNOT_EQUAL: " << endl;
+*/
+	return 1;
 }

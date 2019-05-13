@@ -4,15 +4,9 @@
 .field private static _runTimer LRunTimer;
 .field private static _standardIn LPascalTextIn;
 
-; i,j:integer
+; i:integer
 
 .field private static i I
-.field private static j I
-
-; alpha,beta5x:real
-
-.field private static alpha F
-.field private static beta5x F
 
 .method public <init>()V
 
@@ -35,20 +29,10 @@
 	invokenonvirtual PascalTextIn/<init>()V
 	putstatic        sample/_standardIn LPascalTextIn;
 
-; i:=3
-
-	ldc	3
-	putstatic	sample/i I
-
-; j:=1
-
-	ldc	1
-	putstatic	sample/j I
-
-; IFi<=jTHENi:=j
+; IF(i==3)i:=1
 
 
-; REPEATi:=i+1UNTILi=5
+; WHILE(i==1)i+1
 
 
 ; 

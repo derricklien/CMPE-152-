@@ -37,7 +37,7 @@ public:
     antlrcpp::Any visitIntegerConst(Pcl2Parser::IntegerConstContext *ctx) override;
     antlrcpp::Any visitFloatConst(Pcl2Parser::FloatConstContext *ctx) override;
     antlrcpp::Any visitIf_stmt(Pcl2Parser::If_stmtContext *ctx) override;
-    antlrcpp::Any visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *ctx) override;
+    antlrcpp::Any visitWhile_stmt(Pcl2Parser::While_stmtContext *ctx) override;
 };
 
 #endif /* PASS2VISITOR_H_ */

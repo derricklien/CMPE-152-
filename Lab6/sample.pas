@@ -1,19 +1,10 @@
 PROGRAM sample;
 
 VAR
-    i, j : integer;
-    alpha, beta5x : real;    
+    i: integer;
 
-BEGIN 
-  i := 3;
-  j:=1;
-IF i <= j THEN i :=j ;
-
-REPEAT 
-i:=i+1
-UNTIL
-i = 5;
-
+BEGIN
+IF (i == 3) i := 1;
+WHILE (i == 1) i+1;
 
 END.
-
