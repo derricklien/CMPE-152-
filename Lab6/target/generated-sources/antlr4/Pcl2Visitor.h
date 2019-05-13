@@ -51,11 +51,9 @@ public:
 
     virtual antlrcpp::Any visitAssignmentStmt(Pcl2Parser::AssignmentStmtContext *context) = 0;
 
-    virtual antlrcpp::Any visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *context) = 0;
+    virtual antlrcpp::Any visitWhile_stmt(Pcl2Parser::While_stmtContext *context) = 0;
 
     virtual antlrcpp::Any visitIf_stmt(Pcl2Parser::If_stmtContext *context) = 0;
-
-    virtual antlrcpp::Any visitVariable(Pcl2Parser::VariableContext *context) = 0;
 
     virtual antlrcpp::Any visitVariableExpr(Pcl2Parser::VariableExprContext *context) = 0;
 
@@ -80,6 +78,8 @@ public:
     virtual antlrcpp::Any visitSignedNumber(Pcl2Parser::SignedNumberContext *context) = 0;
 
     virtual antlrcpp::Any visitSign(Pcl2Parser::SignContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable(Pcl2Parser::VariableContext *context) = 0;
 
     virtual antlrcpp::Any visitIntegerConst(Pcl2Parser::IntegerConstContext *context) = 0;
 

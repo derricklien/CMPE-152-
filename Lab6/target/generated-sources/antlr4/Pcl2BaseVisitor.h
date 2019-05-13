@@ -75,15 +75,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitRepeat_stmt(Pcl2Parser::Repeat_stmtContext *ctx) override {
+  virtual antlrcpp::Any visitWhile_stmt(Pcl2Parser::While_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitIf_stmt(Pcl2Parser::If_stmtContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitVariable(Pcl2Parser::VariableContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -132,6 +128,10 @@ public:
   }
 
   virtual antlrcpp::Any visitSign(Pcl2Parser::SignContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable(Pcl2Parser::VariableContext *ctx) override {
     return visitChildren(ctx);
   }
 

@@ -17,10 +17,10 @@ class  Pcl2Lexer : public antlr4::Lexer {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    PROGRAM = 8, VAR = 9, BEGIN = 10, END = 11, REPEAT = 12, UNTIL = 13, 
-    IF = 14, THEN = 15, ELSE = 16, IDENTIFIER = 17, INTEGER = 18, FLOAT = 19, 
-    MUL_OP = 20, DIV_OP = 21, ADD_OP = 22, SUB_OP = 23, EQ_OP = 24, NE_OP = 25, 
-    LT_OP = 26, LE_OP = 27, GT_OP = 28, GE_OP = 29, NEWLINE = 30, WS = 31
+    PROGRAM = 8, VAR = 9, BEGIN = 10, END = 11, UNTIL = 12, IF = 13, THEN = 14, 
+    ELSE = 15, WHILE = 16, IDENTIFIER = 17, INTEGER = 18, FLOAT = 19, MUL_OP = 20, 
+    DIV_OP = 21, ADD_OP = 22, SUB_OP = 23, EQ_OP = 24, NE_OP = 25, LT_OP = 26, 
+    LE_OP = 27, GT_OP = 28, GE_OP = 29, NEWLINE = 30, WS = 31
   };
 
   Pcl2Lexer(antlr4::CharStream *input);

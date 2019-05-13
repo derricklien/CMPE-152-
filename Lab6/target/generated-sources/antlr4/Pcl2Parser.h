@@ -17,19 +17,19 @@ class  Pcl2Parser : public antlr4::Parser {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    PROGRAM = 8, VAR = 9, BEGIN = 10, END = 11, REPEAT = 12, UNTIL = 13, 
-    IF = 14, THEN = 15, ELSE = 16, IDENTIFIER = 17, INTEGER = 18, FLOAT = 19, 
-    MUL_OP = 20, DIV_OP = 21, ADD_OP = 22, SUB_OP = 23, EQ_OP = 24, NE_OP = 25, 
-    LT_OP = 26, LE_OP = 27, GT_OP = 28, GE_OP = 29, NEWLINE = 30, WS = 31
+    PROGRAM = 8, VAR = 9, BEGIN = 10, END = 11, UNTIL = 12, IF = 13, THEN = 14, 
+    ELSE = 15, WHILE = 16, IDENTIFIER = 17, INTEGER = 18, FLOAT = 19, MUL_OP = 20, 
+    DIV_OP = 21, ADD_OP = 22, SUB_OP = 23, EQ_OP = 24, NE_OP = 25, LT_OP = 26, 
+    LE_OP = 27, GT_OP = 28, GE_OP = 29, NEWLINE = 30, WS = 31
   };
 
   enum {
     RuleProgram = 0, RuleHeader = 1, RuleMainBlock = 2, RuleBlock = 3, RuleDeclarations = 4, 
     RuleDeclList = 5, RuleDecl = 6, RuleVarList = 7, RuleVarId = 8, RuleTypeId = 9, 
     RuleCompoundStmt = 10, RuleStmt = 11, RuleStmtList = 12, RuleAssignmentStmt = 13, 
-    RuleRepeat_stmt = 14, RuleIf_stmt = 15, RuleVariable = 16, RuleExpr = 17, 
-    RuleMulDivOp = 18, RuleAddSubOp = 19, RuleRel_op = 20, RuleSignedNumber = 21, 
-    RuleSign = 22, RuleNumber = 23
+    RuleWhile_stmt = 14, RuleIf_stmt = 15, RuleExpr = 16, RuleMulDivOp = 17, 
+    RuleAddSubOp = 18, RuleRel_op = 19, RuleSignedNumber = 20, RuleSign = 21, 
+    RuleVariable = 22, RuleNumber = 23
   };
 
   Pcl2Parser(antlr4::TokenStream *input);
@@ -56,15 +56,15 @@ public:
   class StmtContext;
   class StmtListContext;
   class AssignmentStmtContext;
-  class Repeat_stmtContext;
+  class While_stmtContext;
   class If_stmtContext;
-  class VariableContext;
   class ExprContext;
   class MulDivOpContext;
   class AddSubOpContext;
   class Rel_opContext;
   class SignedNumberContext;
   class SignContext;
+  class VariableContext;
   class NumberContext; 
 
   class  ProgramContext : public antlr4::ParserRuleContext {
@@ -225,7 +225,7 @@ public:
     virtual size_t getRuleIndex() const override;
     CompoundStmtContext *compoundStmt();
     AssignmentStmtContext *assignmentStmt();
-    Repeat_stmtContext *repeat_stmt();
+    While_stmtContext *while_stmt();
     If_stmtContext *if_stmt();
 
 
@@ -263,21 +263,20 @@ public:
 
   AssignmentStmtContext* assignmentStmt();
 
-  class  Repeat_stmtContext : public antlr4::ParserRuleContext {
+  class  While_stmtContext : public antlr4::ParserRuleContext {
   public:
-    Repeat_stmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    While_stmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *REPEAT();
-    StmtListContext *stmtList();
-    antlr4::tree::TerminalNode *UNTIL();
-    ExprContext *expr();
+    antlr4::tree::TerminalNode *WHILE();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
-  Repeat_stmtContext* repeat_stmt();
+  While_stmtContext* while_stmt();
 
   class  If_stmtContext : public antlr4::ParserRuleContext {
   public:
@@ -285,10 +284,7 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *IF();
     ExprContext *expr();
-    antlr4::tree::TerminalNode *THEN();
-    std::vector<StmtContext *> stmt();
-    StmtContext* stmt(size_t i);
-    antlr4::tree::TerminalNode *ELSE();
+    StmtContext *stmt();
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -296,19 +292,6 @@ public:
   };
 
   If_stmtContext* if_stmt();
-
-  class  VariableContext : public antlr4::ParserRuleContext {
-  public:
-    VariableContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IDENTIFIER();
-
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  VariableContext* variable();
 
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
@@ -469,6 +452,19 @@ public:
   };
 
   SignContext* sign();
+
+  class  VariableContext : public antlr4::ParserRuleContext {
+  public:
+    VariableContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *IDENTIFIER();
+
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  VariableContext* variable();
 
   class  NumberContext : public antlr4::ParserRuleContext {
   public:
